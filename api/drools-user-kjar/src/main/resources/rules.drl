@@ -1,0 +1,73 @@
+package org.drools.workshop;
+import org.drools.workshop.model.*;
+
+rule "Category By Age: Adult"
+    when
+        $u: User( age >= 18, category == null ||  == "")
+    then
+        $u.setCategory("Adult");
+end
+
+rule "Category By Age: Teenager"
+    when
+        $u: User( age > 12 && < 18, category == null || == "")
+    then
+        $u.setCategory("Teenager");
+end
+
+rule "Category By Age: Children"
+    when
+        $u: User( age <= 12 && >= 0, category == null || == "")
+    then
+        $u.setCategory("Children");
+end
+
+rule "Category By Age: Not Valid"
+    when
+        $u: User( age < 0, category == null || == "")
+    then
+        $u.setCategory("Not Valid");
+end
+/*
+rule "Hermano"
+    when
+        $ph1 : PadreHijo()
+	    $ph2 : PadreHijo($ph1.padre == padre && $ph1.hijo != hijo)
+    then
+	    insert(new Hermano($ph1.getHijo(), $ph2.getHijo()));
+end
+*/
+rule "Definir hermanos"
+	when
+		$ph1 : PadreHijo();
+		$ph2 : PadreHijo(padre == $ph1.padre && this != $ph1);
+	then
+		insert(new Hermano($ph1.getHijo(), $ph2.getHijo()));
+end
+
+rule "Definir abuelo"
+	when
+		$ph1 : PadreHijo();
+		$ph2 : PadreHijo(hijo == $ph1.padre);
+	then
+		insert(new Abuelo($ph2.getPadre(), $ph1.getHijo()));
+end
+
+rule "Definir bisabuelo"
+	when
+		$ph1 : PadreHijo();
+		$ph2 : PadreHijo(hijo == $ph1.padre);
+		$ph3 : PadreHijo(hijo == $ph2.padre);
+	then
+		insert(new Bisabuelo($ph3.getPadre(), $ph1.getHijo()));
+end
+
+rule "Definir tio-abuelo"
+	when
+		$ph1 : PadreHijo();
+		$ph2 : PadreHijo(hijo == $ph1.padre);
+		$ph3 : PadreHijo(hijo == $ph2.padre); // Encuentra padre del abuelo
+		$ph4 : PadreHijo(padre == $ph3.padre && this != $ph3);
+	then
+		insert(new Tioabuelo($ph4.getHijo(), $ph1.getHijo()));
+end
