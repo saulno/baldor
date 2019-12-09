@@ -43,7 +43,16 @@ export default {
     modules: [
         // Doc: https://axios.nuxtjs.org/usage
         '@nuxtjs/axios',
+        '@nuxtjs/proxy'
     ],
+    proxy: {
+        '/drools': {
+            target: 'http://localhost:8080',
+            pathRewrite: {
+                '^/drools': '/'
+            }
+        }
+    },
     /*
      ** Axios module configuration
      ** See https://axios.nuxtjs.org/options
