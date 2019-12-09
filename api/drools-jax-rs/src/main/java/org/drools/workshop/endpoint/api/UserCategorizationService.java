@@ -13,10 +13,12 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import org.drools.workshop.model.User;
+import org.drools.workshop.model.Problema;
+import org.drools.workshop.model.Respuesta;
 
 /**
  *
- * @author salaboy
+ * 
  */
 @Path("usuarios")
 public interface UserCategorizationService {
@@ -25,10 +27,17 @@ public interface UserCategorizationService {
     @Produces("application/json")
     @Path("/registrar")
     public User registrarUsuario(@NotNull User user);
+
+    @POST
+    @Consumes("application/json")
+    @Produces("application/json")
+    @Path("/responder")
+    public User responderPregunta(@NotNull Respuesta respuesta);
         
     @GET
+    @Consumes("application/json")
     @Produces("application/json")
-    @Path("")
-    public List<User> getUsers();
+    @Path("/ejercicio")
+    public Problema elegirProblema(@NotNull User user);
 
 }

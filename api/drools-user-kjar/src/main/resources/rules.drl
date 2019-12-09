@@ -1,23 +1,27 @@
 package org.drools.workshop;
 import org.drools.workshop.model.*;
+import java.util.ArrayList;
 
-rule "Category By Age: Adult"
+rule "Nuevo alumno o subir de nivel"
     when
-        $u: User( age >= 18, category == null ||  == "")
+        $u : User( progreso == 0)
+        $t : Tema(nivel == $u.nivel)
     then
-        $u.setCategory("Adult");
+        $u.setProblema(new ArrayList<>($t.getProblema()));
 end
 
-rule "Category By Age: Teenager"
+rule "Subir de nivel"
     when
-        $u: User( age > 12 && < 18, category == null || == "")
+        $u : User(progreso >= 3)
     then
-        $u.setCategory("Teenager");
+        $u.subirNivel();
+        $u.setProgreso(0);
 end
 
-rule "Category By Age: Children"
-    when
-        $u: User( age <= 12 && >= 0, category == null || == "")
+rule "Bajar de nivel"
+    when    
+        $u : User(progreso <= -3)
     then
-        $u.setCategory("Children");
+        $u.bajarNivel();
+        $u.setProgreso(0);
 end

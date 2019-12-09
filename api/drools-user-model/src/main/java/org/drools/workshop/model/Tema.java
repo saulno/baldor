@@ -9,27 +9,36 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class Tema {
     private List<Problema> problema;
-    private Integer nivel;
+    private int nivel;
     static Random random = new Random();
+    private String nombre;
 
     public Tema() {
         problema  = new ArrayList<Problema>();
     }
 
-    public void setNivel(Integer nivel) {
+    public void setNivel(int nivel) {
         this.nivel = nivel;
     }
 
-    public Integer getNivel() {
+    public int getNivel() {
         return nivel;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getNombre() {
+        return nombre;
     }
 
     public void setProblema(List<Problema> ps) {
         problema = ps;
     }
 
-    public Problema elegirProblema() {
-        return problema.get(random.nextInt(problema.size()));
+    public List<Problema> getProblema() {
+        return problema;
     }
 
 }
