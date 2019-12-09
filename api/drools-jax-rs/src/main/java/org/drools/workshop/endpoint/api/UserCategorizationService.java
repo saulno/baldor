@@ -18,22 +18,17 @@ import org.drools.workshop.model.User;
  *
  * @author salaboy
  */
-@Path("users")
+@Path("usuarios")
 public interface UserCategorizationService {
     @POST
     @Consumes("application/json")
     @Produces("application/json")
-    @Path("/categorize")
-    public User categorizeUser(@NotNull User user);
-    
+    @Path("/registrar")
+    public User registrarUsuario(@NotNull User user);
         
     @GET
     @Produces("application/json")
     @Path("")
     public List<User> getUsers();
 
-    @GET
-    @Produces("text/html")
-    @Path("html")
-    public String getHtml();
 }

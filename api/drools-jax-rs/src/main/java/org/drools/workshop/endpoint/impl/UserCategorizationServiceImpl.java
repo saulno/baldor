@@ -27,15 +27,31 @@ public class UserCategorizationServiceImpl implements UserCategorizationService 
     }
 
     @Override
-    public User categorizeUser(User user) {
-        System.out.println(">> kSession: " + kSession);
-        printKieSessionAllFacts(kSession);
-        System.out.println(">> User: " + user);
-        kSession.insert(user);
-        int fired = kSession.fireAllRules();
-        System.out.println(">> Fired: " + fired);
-        return user;
+    public User registrarUsuario(User user) {
+        boolean encontrado = false;
+        User loginUsuario = new User();
 
+        for(Object o : kSession.getObjects()) {
+            if (o instanceof User) {
+                User u = (User) o;
+                if (user.getUsername().equals(u.getUsername())) {
+                    encontrado = true;
+                    loginUsuario = (User) o;
+                }
+            }
+        }
+
+        if (encontrado) {
+            return loginUsuario;
+        } else {    
+            System.out.println(">> kSession: " + kSession);
+            printKieSessionAllFacts(kSession);
+            System.out.println(">> Usuario: " + user);
+            kSession.insert(user);
+            int fired = kSession.fireAllRules();
+            System.out.println(">> Fired: " + fired);
+            return user;
+        }
     }
 
     @Override
@@ -55,51 +71,6 @@ public class UserCategorizationServiceImpl implements UserCategorizationService 
             System.out.println(">> Fact: " + o);
         }
         System.out.println(" >> End - Printing All Facts in the Kie Session");
-    }
-
-    public String getHtml() {
-	StringBuilder sb = new StringBuilder();
-sb.append("<html xmlns='http://www.w3.org/1999/xhtml'>");sb.append("\n");
-sb.append("<head>");sb.append("\n");
-sb.append("  <meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>");sb.append("\n");
-sb.append("  <title>Users Drools</title>");sb.append("\n");
-sb.append("  <script type='text/javascript'>");sb.append("\n");
-sb.append("    function f() {");sb.append("\n");
-sb.append("       var name = document.getElementById('element_1').value");sb.append("\n");
-sb.append("        var age = document.getElementById('element_2').value ");sb.append("\n");
-sb.append("       xhr = new XMLHttpRequest();");sb.append("\n");
-sb.append("       var url = 'http://localhost:8080/api/users/categorize/';");sb.append("\n");
-sb.append("       xhr.open('POST', url, true);");sb.append("\n");
-sb.append("       xhr.setRequestHeader('Content-type', 'application/json');");sb.append("\n");
-sb.append("       xhr.setRequestHeader('accept', 'application/json');");sb.append("\n");
-sb.append("       xhr.setRequestHeader('Access-Control-Allow-Origin', 'http://localhost:8080');");sb.append("\n");
-sb.append("       xhr.onreadystatechange = function () { ");sb.append("\n");
-sb.append("           if (xhr.readyState == 4 && xhr.status == 200) {");sb.append("\n");
-sb.append("               var json = JSON.parse(xhr.responseText);");sb.append("\n");
-sb.append("               document.getElementById('salida').innerHTML = xhr.responseText;");sb.append("\n");
-sb.append("       }");sb.append("\n");
-sb.append("      }");sb.append("\n");
-sb.append("      var data = JSON.stringify({'name': name,'age':age});");sb.append("\n");
-sb.append("      xhr.send(data);");sb.append("\n");
-sb.append("    return false;");sb.append("\n");
-sb.append("    }");sb.append("\n");
-sb.append("   </script>");sb.append("\n");
-sb.append("</head>");sb.append("\n");
-sb.append("<body> ");sb.append("\n");
-sb.append("  <h1><a>Users Drools</a></h1>");sb.append("\n");
-sb.append("     <div>");sb.append("\n");
-sb.append("                     <input id='element_1' name='element_1'  type='text' maxlength='255' value=''/> ");sb.append("\n");
-sb.append("     </div>");sb.append("\n");
-sb.append("     <div>");sb.append("\n");
-sb.append("                     <input id='element_2' name='element_2' class='element text medium' type='text' maxlength='255' value=''/> ");sb.append("\n");
-sb.append("     </div>  ");sb.append("\n");
-sb.append("     <div id= 'salida'> ");sb.append("\n");
-sb.append("     </div> ");sb.append("\n");
-sb.append("  <input type='submit' value = 'Submit' onclick = 'f() '>");sb.append("\n");
-sb.append("  </body>");sb.append("\n");
-sb.append("</html>");sb.append("\n");
-
-return sb.toString();
     }
 
 }

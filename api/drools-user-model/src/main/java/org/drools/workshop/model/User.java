@@ -7,47 +7,42 @@ package org.drools.workshop.model;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
-/**
- *
- * @author salaboy
- */
 @XmlRootElement
 public class User {
     
-    private String name;
-    private Integer age;
-    private String category;
+    private String username;
+    private Integer progreso;
 
     public User() {
+        progreso = 0;
+        username = "";
     }
 
-    public String getName() {
-        return name;
+    public String getUsername() {
+        return username;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public Integer getAge() {
-        return age;
+    public Integer getProgreso() {
+        return progreso;
     }
 
-    public void setAge(Integer age) {
-        this.age = age;
-    }
-
-    public String getCategory() {
-        return category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
+    public void registrarRespuesta(boolean esCorrecta) {
+        if (esCorrecta) {
+            progreso += 1;
+        } else {
+            progreso -= 1;
+        }
     }
 
     @Override
     public String toString() {
-        return "User{" + "name=" + name + ", age=" + age + ", category=" + category + '}';
+        return "User{" +    "\nusername=" + username + 
+                            ",\nprogreso=" + progreso +
+        '}';
     }
 
    

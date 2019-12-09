@@ -7,6 +7,7 @@ import java.text.DecimalFormat;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
+@XmlRootElement
 public class Problema {
     String instruccion;
     String ecuacion;
@@ -102,8 +103,8 @@ public class Problema {
     @Override
     public String toString() {
         return "Problema{" +    "\ninstruccion=" + instruccion + 
-                                "\necuacion=" + ecuacion +
-                                "\nrespuesta=" + respuesta +
+                                ",\necuacion=" + ecuacion +
+                                ",\nrespuesta=" + respuesta +
         "}";
     }
 
