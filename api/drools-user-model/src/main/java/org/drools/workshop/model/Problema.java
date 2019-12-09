@@ -58,12 +58,7 @@ public class Problema {
         return respuesta;
     }
 
-    public void actualizar() {
-        setEcuacion(this.ecuacion);
-        setRespuesta(this.respuesta);
-    }
-
-    public void setRespuesta(String solucionConEspacios) {
+    public void setRespuesta(String solucionConEspacios, String tipo) {
         // Reemplazar coeficientes de la respuesta para obtenerla
         String solucionOriginal = solucionConEspacios.replaceAll(" ", "");
         String solucionFinal = solucionConEspacios.replaceAll(" ", "");
@@ -80,22 +75,27 @@ public class Problema {
             // a = 2 + 3 (coeficientes)
             String var = varEcuacion.substring(0, 3);
             var = var.replaceAll("\\^1", "");
-            var = var.replaceAll("z", " ");
             double coeficiente = evaluar(varEcuacion.substring(4));
 
-            if (coeficiente > 0 && !resultado.equals("")) {
-                resultado += " + ";
-            } else if (coeficiente < 0) {
-                resultado += " - ";
+            if (tipo.equals("reduccion")) {
+                if (coeficiente > 0 && !resultado.equals("")) {
+                    resultado += " + ";
+                } else if (coeficiente < 0) {
+                    resultado += " - ";
+                }
+                
+                if (coeficiente == 1) {
+                    resultado += String.valueOf(var) + " ";
+                } else if (coeficiente == 0) {
+    
+                } else {
+                    resultado += decFormat.format(Math.abs(coeficiente)) + " * " + String.valueOf(var) + " ";
+                }
+            } else if (tipo.equals("despeje")) {
+                String signo = coeficiente < 0 ? "- " : "";
+                resultado += String.valueOf(var) + " = " + signo + decFormat.format(Math.abs(coeficiente));
             }
-            
-            if (coeficiente == 1) {
-                resultado += String.valueOf(var) + " ";
-            } else if (coeficiente == 0) {
 
-            } else {
-                resultado += decFormat.format(Math.abs(coeficiente)) + " * " + String.valueOf(var) + " ";
-            }
         }
 
         this.respuesta = resultado;

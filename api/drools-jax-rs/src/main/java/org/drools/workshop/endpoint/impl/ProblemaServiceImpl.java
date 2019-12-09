@@ -30,23 +30,23 @@ public class ProblemaServiceImpl implements ProblemaService {
 
 
         t.setNivel(0);
-        t.setNombre("Sumas y restas");
+        t.setNombre("Sumas basicas polinomios");
 
-		p.setInstruccion("Reducir el siguiente polinomio.");
+        p.setInstruccion("Reducir el siguiente polinomio.");
 		p.setEcuacion("A * a + B * b + C * a + D * b");
-        p.setRespuesta("a^1 = A + C, b^1 = B + D");
+        p.setRespuesta("a^1 = A + C, b^1 = B + D", "reduccion");
         ps.add(p);
 
         p = new Problema();
         p.setInstruccion("Reducir el siguiente polinomio.");
         p.setEcuacion("1 - ((A * a + B * c) + (C * a + D * c))");
-        p.setRespuesta("a^1 = -1 * (A + C), c^1 = 1 - B - D");
+        p.setRespuesta("a^1 = -1 * (A + C), c^1 = 1 - B - D", "reduccion");
         ps.add(p);
 
         p = new Problema();
         p.setInstruccion("Obten el valor de x.");
-        p.setEcuacion("A * x = B * x - C");
-        p.setRespuesta("x^1 = C / (A - B)");
+        p.setEcuacion("A * x = B * x + C");
+        p.setRespuesta("x^1 = C / (A - B)", "despeje");
         ps.add(p);
 
         t.setProblema(ps);

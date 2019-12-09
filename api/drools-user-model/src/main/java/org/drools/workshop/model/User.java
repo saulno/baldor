@@ -34,7 +34,15 @@ public class User {
     }
 
     public void setProgreso(int progreso) {
-        this.progreso = progreso;
+        if (progreso >= 3) {
+            subirNivel();
+            this.progreso = 0;
+        } else if (progreso <= 3) {
+            bajarNivel();
+            this.progreso = 0;
+        } else {
+            this.progreso = progreso;
+        }
     }
 
     public int getProgreso() {
@@ -65,9 +73,9 @@ public class User {
 
     public void registrarRespuesta(boolean esCorrecta) {
         if (esCorrecta) {
-            progreso += 1;
+            setProgreso(progreso + 1);
         } else {
-            progreso -= 1;
+            setProgreso(progreso - 1);
         }
     }
 
