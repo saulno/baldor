@@ -1,10 +1,10 @@
 export const state = () => ({
-    name: ''
+    name: ""
 })
 
 export const mutations = {
-    set(state, name) {
-        state.name = name
+    updateName(state, name) {
+        state.name = name;
     }
 }
 

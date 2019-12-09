@@ -2,10 +2,10 @@
     <div>
         <div class="login-container">
             <h2>Login</h2>
-            <form class="login-form" @submit.prevent="onSubmit">
+            <form @submit.prevent="onSubmit">
                 <div>
                     <label for="username">Username</label>
-                    <input class="login-text" type="text" v-model="username" name="username" id="username">
+                    <input class="login-text" type="text" :input="username" @input="updateName" name="username" id="username" placeholder="Username">
                 </div>
                 <nuxt-link to="home">
                     <input type="submit" value="Login">
@@ -16,22 +16,34 @@
 </template>
 
 <script>
+import axios from "axios";
+import { mapState } from 'vuex';
+
 export default {
     head() {
         return {
             title: "Login", 
         };
-    }, 
-    data() {
-        return {
-            username: ""
-        };
+    },
+    computed: {
+        ...mapState({
+            username: state => state.name
+        })
     },
     methods: {
-        onSubmit() {
-            console.log("dfsdF")
+        updateName (e) {
+            console.log(e.target.value)
+            this.$store.commit('updateName', e.target.value)
         }
-    }
+    },
+    async created() {
+        try {
+            const res = await axios.get("drools/api/problema/actualizar")
+            console.log(res);
+        } catch (error) {
+            console.log(error);
+        }
+    },
 }
 </script>
 
@@ -52,7 +64,7 @@ export default {
         font-weight: 1000;
     }
 
-    .login-form {
+    form {
         font-size: 1.5rem;
         font-weight: 10;
     }
