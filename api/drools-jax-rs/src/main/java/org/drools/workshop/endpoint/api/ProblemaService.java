@@ -15,21 +15,10 @@ import org.drools.workshop.model.*;
  */
 @Path("problema")
 public interface ProblemaService {
-	
-	@GET
-    @Produces("application/json")
-    @Path("")
-    public List<Problema> getProblemas();
 
     @GET
     @Produces("application/json")
     @Path("/actualizar")
     public Problema actualizarProblemas();
-	
-	@POST
-    @Consumes("application/json")
-    @Produces("application/json")
-    @Path("/inserta")
-    public Problema insertaProblema(@NotNull Problema p);
 
 }

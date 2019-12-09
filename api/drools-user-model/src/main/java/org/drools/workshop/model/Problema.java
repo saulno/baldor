@@ -80,6 +80,7 @@ public class Problema {
             // a = 2 + 3 (coeficientes)
             String var = varEcuacion.substring(0, 3);
             var = var.replaceAll("\\^1", "");
+            var = var.replaceAll("z", " ");
             double coeficiente = evaluar(varEcuacion.substring(4));
 
             if (coeficiente > 0 && !resultado.equals("")) {

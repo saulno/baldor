@@ -5,16 +5,23 @@
  */
 package org.drools.workshop.model;
 
+import java.util.List;
+import java.util.Random;
+
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 public class User {
     
     private String username;
-    private Integer progreso;
+    private int progreso;
+    private int nivel;
+    private List<Problema> problema;
+    static Random random = new Random();
 
     public User() {
         progreso = 0;
+        nivel = 0;
         username = "";
     }
 
@@ -26,8 +33,34 @@ public class User {
         this.username = username;
     }
 
-    public Integer getProgreso() {
+    public void setProgreso(int progreso) {
+        this.progreso = progreso;
+    }
+
+    public int getProgreso() {
         return progreso;
+    }
+
+    public int getNivel() {
+        return nivel;
+    }
+
+    public void subirNivel() {
+        this.nivel +=1;
+    }
+
+    public void bajarNivel() {
+        if (this.nivel > 0) {
+            this.nivel -= 1;
+        }
+    }
+
+    public Problema elegirProblema() {
+        return problema.get(random.nextInt(problema.size()));
+    }
+
+    public void setProblema(List<Problema> problema) {
+        this.problema = problema;
     }
 
     public void registrarRespuesta(boolean esCorrecta) {

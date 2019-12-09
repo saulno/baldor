@@ -4,6 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import javax.validation.constraints.NotNull;
+
+import org.drools.workshop.model.Problema;
+import org.drools.workshop.model.Respuesta;
 import org.drools.workshop.model.User;
 
 import org.drools.workshop.endpoint.api.UserCategorizationService;
@@ -22,6 +26,27 @@ public class UserCategorizationServiceImpl implements UserCategorizationService 
     @KReleaseId(groupId = "org.drools.workshop", artifactId = "drools-user-kjar", version = "1.0-SNAPSHOT")
     @KSession
     private KieSession kSession;
+
+    public User responderPregunta(Respuesta respuesta) {
+        User usr = new User();
+        for(Object o : kSession.getObjects()) {
+            if (o instanceof User) {
+                User u = (User) o;
+                if (respuesta.getUsername().equals(u.getUsername())) {
+                    u.registrarRespuesta(respuesta.getEsCorrecto());
+                    usr = u;
+                }
+            }
+        }
+
+        System.out.println(">> kSession: " + kSession);
+        printKieSessionAllFacts(kSession);
+        System.out.println(">> Usuario: " + usr);
+        kSession.insert(usr);
+        int fired = kSession.fireAllRules();
+        System.out.println(">> Fired: " + fired);
+        return usr;
+    }
 
     public UserCategorizationServiceImpl() {
     }
@@ -55,14 +80,19 @@ public class UserCategorizationServiceImpl implements UserCategorizationService 
     }
 
     @Override
-    public List<User> getUsers() {
-        List<User> users = new ArrayList<User>();
-        for (Object o : kSession.getObjects()) {
+    public Problema elegirProblema(User user) {
+        Problema p = new Problema();
+
+        for(Object o : kSession.getObjects()) {
             if (o instanceof User) {
-                users.add((User) o);
+                User u = (User) o;
+                if (user.getUsername().equals(u.getUsername())) {
+                   p = u.elegirProblema();
+                }
             }
         }
-        return users;
+
+        return p;
     }
 
     private void printKieSessionAllFacts(KieSession kSession) {
