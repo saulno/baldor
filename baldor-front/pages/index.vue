@@ -1,77 +1,72 @@
 <template>
-  <div class="container">
     <div>
-      <logo />
-      <h1 class="title">
-        baldor-front
-      </h1>
-      <h2 class="subtitle">
-        Front-end app for baldor learning project
-      </h2>
-      <div class="links">
-        <a
-          href="https://nuxtjs.org/"
-          target="_blank"
-          class="button--green"
-        >
-          Documentation
-        </a>
-        <a
-          href="https://github.com/nuxt/nuxt.js"
-          target="_blank"
-          class="button--grey"
-        >
-          GitHub
-        </a>
-      </div>
+        <div class="login-container">
+            <h2>Login</h2>
+            <form class="login-form" @submit.prevent="onSubmit">
+                <div>
+                    <label for="username">Username</label>
+                    <input class="login-text" type="text" v-model="username" name="username" id="username">
+                </div>
+                <nuxt-link to="home">
+                    <input type="submit" value="Login">
+                </nuxt-link>
+            </form>
+        </div>
     </div>
-  </div>
 </template>
 
 <script>
-import Logo from '~/components/Logo.vue'
-
 export default {
-  components: {
-    Logo
-  }
+    head() {
+        return {
+            title: "Login", 
+        };
+    }, 
+    data() {
+        return {
+            username: ""
+        };
+    },
+    methods: {
+        onSubmit() {
+            console.log("dfsdF")
+        }
+    }
 }
 </script>
 
-<style>
-/* Sample `apply` at-rules with Tailwind CSS
-.container {
-  @apply min-h-screen flex justify-center items-center text-center mx-auto;
-}
-*/
-.container {
-  margin: 0 auto;
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
+<style scoped>
+    .login-container {
+        font-family: 'Inconsolata', monospace;
+        margin: 0 auto;
+        text-align: center;
+        margin-top: 20vh;
+        border: 1px solid green;
+        border-radius: 30px;
+        width: 40vw;
+        padding: 20px;
+    }
 
-.title {
-  font-family: 'Quicksand', 'Source Sans Pro', -apple-system, BlinkMacSystemFont,
-    'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  display: block;
-  font-weight: 300;
-  font-size: 100px;
-  color: #35495e;
-  letter-spacing: 1px;
-}
+    h2 {
+        font-size: 2.5rem;
+        font-weight: 1000;
+    }
 
-.subtitle {
-  font-weight: 300;
-  font-size: 42px;
-  color: #526488;
-  word-spacing: 5px;
-  padding-bottom: 15px;
-}
+    .login-form {
+        font-size: 1.5rem;
+        font-weight: 10;
+    }
 
-.links {
-  padding-top: 15px;
-}
+    .login-text {
+        border-bottom: 1px solid rgb(140, 228, 181);
+        margin-bottom: 20px;
+    }
+
+    .login-btn {
+        background-color: rgb(140, 228, 181);
+        border-radius: 40px;
+        width: 30%;
+        margin: 0 auto;
+    }
+
 </style>
