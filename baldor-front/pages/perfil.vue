@@ -19,6 +19,9 @@
 </template>
 
 <script>
+import axios from "axios";
+import { mapState } from 'vuex';
+
 export default {
     computed: {
         name () {
@@ -28,6 +31,17 @@ export default {
             return this.$store.state.progreso
         }
     },
+    async created() {
+        try {
+            const res = await axios.post('drools/api/usuarios/registrar', {
+                username: name,
+            })
+            console.log(res)
+            this.$store.commit('updateProgreso', res['data']['progreso']);
+        } catch (error) {
+            console.log(error)
+        }
+    }
 }
 </script>
 

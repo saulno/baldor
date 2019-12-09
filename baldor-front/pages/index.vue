@@ -7,8 +7,8 @@
                     <label for="username">Username</label>
                     <input class="login-text" type="text" :input="username" @input="updateName" name="username" id="username" placeholder="Username">
                 </div>
-                <nuxt-link to="home">
-                    <input type="submit" value="Login">
+                <nuxt-link to="perfil">
+                    <input class="login-btn" type="submit" value="Login">
                 </nuxt-link>
             </form>
         </div>
