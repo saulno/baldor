@@ -49,6 +49,34 @@ public class ProblemaServiceImpl implements ProblemaService {
         p.setRespuesta("x^1 = C / (A - B)", "despeje");
         ps.add(p);
 
+        // AGREGADOS ALI 
+
+        p = new Problema();
+        p.setInstruccion("Reducir el siguiente Polinomio.");
+        p.setEcuacion("A * a - B * a");
+        p.setRespuesta("a^​1 = A * B", "reduccion");
+        ps.add(p);
+
+        p = new Problema();
+        p.setInstruccion("Reducir el siguiente Polinomio.");
+        p.setEcuacion("A * a + B * a + C * b");
+        p.setRespuesta("a^​1 = A + B, b^​1 = C", "reduccion");
+        ps.add(p);
+
+        p = new Problema();
+        p.setInstruccion("Reducir el siguiente Polinomio.");
+        p.setEcuacion("A * a - B * b - C * b + D * a - E * c");
+        p.setRespuesta("a^​1 = A + D, b^​1 = -C - B, c^​1 = E", "reduccion");
+        ps.add(p);
+
+        // Despejes
+        p = new Problema();
+        p.setInstruccion("Obten el valor de x.");
+        p.setEcuacion("A * x = B * x - C");
+        p.setRespuesta("x^1 = (-C) / (A - B)", "despeje");
+        ps.add(p);
+
+        //TTT
         t.setProblema(ps);
         ts.add(t);
 
