@@ -2,7 +2,7 @@
     <div>
         <div class="login-container">
             <h2>Login</h2>
-            <form @submit.prevent="onSubmit">
+            <form>
                 <div>
                     <label for="username">Username</label>
                     <input class="login-text" type="text" :input="username" @input="updateName" name="username" id="username" placeholder="Username">
@@ -32,7 +32,6 @@ export default {
     },
     methods: {
         updateName (e) {
-            console.log(e.target.value)
             this.$store.commit('updateName', e.target.value)
         }
     },

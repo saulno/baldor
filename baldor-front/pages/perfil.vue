@@ -12,32 +12,22 @@
             </li>
         </ul>
         <div class="welcome">
-            Bienvenido <b>{{ name }}</b>, te extrañamos.
+            <p>Bienvenido <b>{{ name }}</b>, te extrañamos.</p>
+            <p>Tu progreso actual es <b>{{ progress }}</b>.</p>
         </div>
     </div>
 </template>
 
 <script>
-import axios from "axios";
-import { mapState } from 'vuex';
-
 export default {
     computed: {
         name () {
             return this.$store.state.name
+        },
+        progress () {
+            return this.$store.state.progreso
         }
     },
-    async created() {
-        try {
-            const res = await axios.post('drools/api/usuarios/registrar', {
-                username: name,
-            })
-            console.log(res)
-            this.$store.commit('updateProgreso', res['data']['progreso']);
-        } catch (error) {
-            console.log(error)
-        }
-    }
 }
 </script>
 
